@@ -76,6 +76,7 @@ app.get('/', (req, res) => {
 
 
 
+app.use('/uploads', express.static('uploads'));
 
 
 
