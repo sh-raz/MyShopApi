@@ -1,0 +1,31 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Environment variable files (sensitive data)
+.env
+
+# Database and migration-related files
+# If you're using a local database or testing files, exclude these
+*.sqlite
+*.db
+
+# Uploads folder (for uploaded files like images)
+uploads/
+
+# Build directories (for any compiled code, TypeScript, or other tools)
+dist/
+build/
+
+# IDE settings
+.vscode/          # VSCode
+.idea/            # JetBrains IDEs (like WebStorm)
+
+# NPM package-lock files (optional, depending on your setup)
+package-lock.json
+
+# Optional: Backup or temp files created by editors
+*.bak
+*.swp
