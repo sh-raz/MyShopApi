@@ -14,16 +14,6 @@ app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 
 
-const sequelize = new Sequelize(process.env.DB_URL, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-});
-
 // Test the database connection
 sequelize
   .authenticate()
@@ -37,7 +27,7 @@ sequelize
 
 
 
-  
+
 const storage = multer.diskStorage({
   destination: './uploads',
   filename: (req, file, cb) => {

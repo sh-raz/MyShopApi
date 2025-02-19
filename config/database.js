@@ -1,17 +1,27 @@
-require('dotenv').config({ path: './myEnvironment.env' }); 
+require('dotenv').config(); // Load environment variables
+
 const { Sequelize } = require('sequelize');
-if (!process.env.DB_DIALECT) {
-   console.error("❌ Error: DB_DIALECT is not defined in .env file.");
+
+if (!process.env.DB_URL) {
+   console.error("❌ Error: DB_URL is not defined in .env file.");
    process.exit(1);
- }
- const sequelize = new Sequelize( 
-    process.env.DB_NAME, 
-    process.env.DB_USER, 
-    process.env.DB_PASSWORD, { host: process.env.DB_HOST, dialect: process.env.DB_DIALECT, logging: false,
-     } );
-    sequelize.authenticate() 
+}
 
-    .then(() => console.log('PostgreSQL Connected')) 
-    .catch((err) => console.error('Database connection error:', err));
+// Create Sequelize instance using DB_URL
+const sequelize = new Sequelize(process.env.DB_URL, {
+   dialect: 'postgres', // Render uses PostgreSQL
+   dialectOptions: {
+      ssl: {
+         require: true,
+         rejectUnauthorized: false, // Required for Render-hosted Postgres
+      },
+   },
+   logging: false, // Disable logging for cleaner output
+});
 
-     module.exports = sequelize;
+// Test database connection
+sequelize.authenticate()
+   .then(() => console.log('✅ PostgreSQL Connected'))
+   .catch((err) => console.error('❌ Database connection error:', err));
+
+module.exports = sequelize;
